@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Flask App </title>
+    <title> Pawllar dashboard </title>
 
 
     <!-- Bootstraps Java Scipts Links -->
@@ -31,11 +31,36 @@
     <script src="http://code.highcharts.com/highcharts-more.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
-
+    <style>
+        .button {
+            background-color: #f5af99;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+    </style>
 
 </head>
 
-<body>
+<body style="background-color: #FFDFD3 ; text-align:center">
+
+    <h1 style="margin-top: 25px;">CoBAND-19</h1>
+    <p> Ogranizational Covid Tracking Bands </p>
+    <style>
+        img {
+            width: 25%;
+            height: 25%;
+        }
+    </style>
+    <img src="main_icon.png" alt="Icon">
+
 
     <div class="jumbotron">
     </div>
@@ -53,6 +78,10 @@
         </div>
     </div>
 
+    <button class="button" onclick="myFunction()">Button</button>
+    <button class="button">Button</button>
+    <button class="button">Button</button>
+    <button class="button">Button</button>
 
 
     <script>
@@ -61,9 +90,25 @@
         Highcharts.setOptions({
             global: {
                 timezoneOffset: timezone
-            }
+            },
+            backgroundColor: 'transparent'
         });
 
+        function myFunction() {
+            var https = require("https");
+            var data = JSON.stringify({
+                "virtualButton": 1,
+                "accessCode": "ACCESS_CODE"
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "https://api.virtualbuttons.com/v1",
+                data: data,
+                success: null,
+                dataType: "json"
+            });
+        }
 
 
         function requestData() {
@@ -104,6 +149,7 @@
                 chart: {
                     renderTo: 'data-container',
                     defaultSeriesType: 'spline', // change the type to spline, line, area
+                    backgroundColor: 'transparent',
                     events: {
                         load: requestData
                     }
