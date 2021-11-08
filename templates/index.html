@@ -35,7 +35,7 @@
         .button {
             background-color: #f5af99;
             border: none;
-            color: white;
+            color: rgb(0, 0, 0);
             padding: 15px 32px;
             text-align: center;
             text-decoration: none;
@@ -51,8 +51,8 @@
 
 <body style="background-color: #FFDFD3 ; text-align:center">
 
-    <h1 style="margin-top: 25px;">CoBAND-19</h1>
-    <p> Ogranizational Covid Tracking Bands </p>
+    <h1 style="margin-top: 25px;">PAWllar</h1>
+    <p> Your Dog's house friend </p>
     <style>
         img {
             width: 25%;
@@ -61,9 +61,6 @@
     </style>
     <img src="main_icon.png" alt="Icon">
 
-
-    <div class="jumbotron">
-    </div>
 
     <br>
     <br>
@@ -78,14 +75,19 @@
         </div>
     </div>
 
-    <button class="button" onclick="myFunction()">Button</button>
-    <button class="button">Button</button>
-    <button class="button">Button</button>
-    <button class="button">Button</button>
+    <button class="button" onclick="Button1()">Set Light color blue</button>
+    <button class="button" onclick="Button2()">Set Light color green</button>
+    <button class="button" onclick="Button3()">Set Light on</button>
+    <br>
+    <button class="button" onclick="Button4()">Set light off</button>
+    <button class="button" onclick="Button5()">Play dog sounds</button>
+
+
 
 
     <script>
         var chart;
+        var accessCode = "{{ button_accesscode }}";
         const timezone = new Date().getTimezoneOffset();
         Highcharts.setOptions({
             global: {
@@ -94,23 +96,94 @@
             backgroundColor: 'transparent'
         });
 
-        function myFunction() {
-            var https = require("https");
+        function Button1() {
+            var accessCode = "{{ button_accesscode }}";
             var data = JSON.stringify({
                 "virtualButton": 1,
-                "accessCode": "ACCESS_CODE"
+                "accessCode": accessCode
             });
 
             $.ajax({
-                type: "POST",
                 url: "https://api.virtualbuttons.com/v1",
+                type: "POST",
                 data: data,
-                success: null,
-                dataType: "json"
+                success: function (response) {
+                    console.log(response);
+                }
+
+            });
+        }
+
+        function Button2() {
+            var accessCode = "{{ button_accesscode }}";
+            var data = JSON.stringify({
+                "virtualButton": 2,
+                "accessCode": accessCode
+            });
+
+            $.ajax({
+                url: "https://api.virtualbuttons.com/v1",
+                type: "POST",
+                data: data,
+                success: function (response) {
+                    console.log(response);
+                }
+
+            });
+        }
+
+        function Button3() {
+            var accessCode = "{{ button_accesscode }}";
+            var data = JSON.stringify({
+                "virtualButton": 3,
+                "accessCode": accessCode
+            });
+
+            $.ajax({
+                url: "https://api.virtualbuttons.com/v1",
+                type: "POST",
+                data: data,
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        }
+        function Button4() {
+            var accessCode = "{{ button_accesscode }}";
+            var data = JSON.stringify({
+                "virtualButton": 4,
+                "accessCode": accessCode
+            });
+
+            $.ajax({
+                url: "https://api.virtualbuttons.com/v1",
+                type: "POST",
+                data: data,
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        }
+
+        function Button5() {
+            var accessCode = "{{ button_accesscode }}";
+            var data = JSON.stringify({
+                "virtualButton": 5,
+                "accessCode": accessCode
+            });
+
+            $.ajax({
+                url: "https://api.virtualbuttons.com/v1",
+                type: "POST",
+                data: data,
+                success: function (response) {
+                    console.log(response);
+                }
             });
         }
 
 
+        var lastButtonPress = 2;
         function requestData() {
             // Ajax call to get the Data from Flask
             try {
@@ -125,14 +198,23 @@
                     console.log(result);
                     if (result[1] > 120) {
                         // alert("WTF?")
-                        console.log("Dard")
-                        Highcharts.setOptions({
-                            series: {
-                                lineColor: "#1d82b8"
-                            }
-                        });
+                        console.log("Dard");
+                        if (lastButtonPress != 1) {
+                            console.log("Button 1 pressed");
+                            Button1();
+                            lastButtonPress = 1;
+                        }
+                    }
+                    else {
+                        console.log("No Dard")
+                        if (lastButtonPress != 2) {
+                            console.log("Button 2 pressed");
+                            Button2();
+                            lastButtonPress = 2;
+                        }
 
                     }
+
                     // call it again after few seconds
                     setTimeout(requestData, 4000);
 
@@ -183,7 +265,7 @@
                         value: 60,
                         color: '#7cb5ec'
                     }, {
-                        value: 115,
+                        value: 120,
                         color: '#86f77e'
                     }, {
                         color: '#FC8F78'

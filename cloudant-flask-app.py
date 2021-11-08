@@ -3,6 +3,7 @@ import json
 from time import sleep
 from random import random
 from flask import Flask, render_template, make_response
+from flask_cors import CORS
 import datetime
 from ibmcloudant.cloudant_v1 import CloudantV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
@@ -11,17 +12,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 SERVICE_URL = os.getenv("SERVICE_URL")
 API_KEY = os.getenv("API_KEY")
 authenticator = IAMAuthenticator(API_KEY)
-
+button_accesscode = os.getenv("button_accesscode")
 service = CloudantV1(authenticator=authenticator)
 
 service.set_service_url(SERVICE_URL)
 
 
 app = Flask(__name__)
+CORS(app)  # This will enable CORS for all routes
 
 i = 0
 
@@ -36,7 +37,7 @@ def get_data():
 
 @app.route("/", methods=["GET", "POST"])
 def main():
-    return render_template("index.html")
+    return render_template("index.html", button_accesscode=button_accesscode)
 
 
 @app.route("/data", methods=["GET", "POST"])
