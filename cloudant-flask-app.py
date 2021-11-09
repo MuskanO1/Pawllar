@@ -1,7 +1,5 @@
 from flask import Flask, render_template, make_response
 import json
-from time import sleep
-from random import random
 from flask import Flask, render_template, make_response
 from flask_cors import CORS
 import datetime

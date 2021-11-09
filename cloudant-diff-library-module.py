@@ -1,12 +1,7 @@
 import time
 from datetime import datetime
-from bluepy.btle import BTLEDisconnectError
-from miband import miband
-import csv
 from ibmcloudant.cloudant_v1 import CloudantV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-import json
-import logging
 import pandas as pd
 from ibm_cloud_sdk_core import ApiException
 from ibmcloudant.cloudant_v1 import CloudantV1, Document
