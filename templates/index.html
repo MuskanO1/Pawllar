@@ -75,18 +75,29 @@
         </div>
     </div>
 
-    <button class="button" onclick="Button1()">Set Light color blue</button>
-    <button class="button" onclick="Button2()">Set Light color green</button>
-    <button class="button" onclick="Button3()">Set Light on</button>
+    <button class="button" onclick="RecModeOn()">Recreation Mode ON</button>
+    <button class="button" onclick="RecModeOff()">Recreation Mode OFF</button>
+    <button class="button" onclick="vButton2()">Set Light color to Green</button>
     <br>
-    <button class="button" onclick="Button4()">Set light off</button>
-    <button class="button" onclick="Button5()">Play dog sounds</button>
+    <button class="button" onclick="vButton1()">Set light color to Blue</button>
+    <button class="button" onclick="vButton4()">Play soothing music</button>
+    <button class="button" onclick="vButton5()">Play voicenote</button>
 
 
 
 
     <script>
+
+        // TODO:
+        // Recreation: ON(Manual buttons)
+        // Recreation: OFF(Manual buttons)
+        // MANUAL LIGHT: GREEN(Alexa Button)
+        // MANUAL LIGHT: BLUE(Alexa Button)
+        // SOOTHING MUSIC: PLAY(Alexa Button)
+        // SEND MY VOICE NOTE: PLAY(Alexa Button)
+
         var chart;
+        var RecMode = false;
         var lastButtonPress = 0;
         var accessCode = "{{ button_accesscode }}";
         const timezone = new Date().getTimezoneOffset();
@@ -97,7 +108,8 @@
             backgroundColor: 'transparent'
         });
 
-        function Button1() {
+        function vButton1() {
+            // Sets color of light to blue
             var accessCode = "{{ button_accesscode }}";
             var data = JSON.stringify({
                 "virtualButton": 1,
@@ -111,13 +123,13 @@
                 success: function (response) {
                     console.log(response);
                 }
-
             });
 
             lastButtonPress = 1;
         }
 
-        function Button2() {
+        function vButton2() {
+            // Sets color of light to green
             var accessCode = "{{ button_accesscode }}";
             var data = JSON.stringify({
                 "virtualButton": 2,
@@ -131,12 +143,12 @@
                 success: function (response) {
                     console.log(response);
                 }
-
             });
             lastButtonPress = 2;
         }
 
-        function Button3() {
+        function vButton3() {
+            // Sets bulb color to white (for RecModeOff)
             var accessCode = "{{ button_accesscode }}";
             var data = JSON.stringify({
                 "virtualButton": 3,
@@ -153,7 +165,8 @@
             });
             lastButtonPress = 3;
         }
-        function Button4() {
+        function vButton4() {
+            // Plays soothing music
             var accessCode = "{{ button_accesscode }}";
             var data = JSON.stringify({
                 "virtualButton": 4,
@@ -171,7 +184,8 @@
             lastButtonPress = 4;
         }
 
-        function Button5() {
+        function vButton5() {
+            // Plays voice note
             var accessCode = "{{ button_accesscode }}";
             var data = JSON.stringify({
                 "virtualButton": 5,
@@ -189,6 +203,16 @@
             lastButtonPress = 5;
         }
 
+        function RecModeOn() {
+            RecMode = true;
+            console.log("RecModeOn");
+        }
+
+        function RecModeOff() {
+            RecMode = false;
+            vButton3();
+            console.log("RecModeOff");
+        }
 
         function requestData() {
             // Ajax call to get the Data from Flask
@@ -210,16 +234,16 @@
                         if (result[1] > 120) {
                             // alert("WTF?")
                             console.log("Dard");
-                            if (lastButtonPress != 1) {
+                            if (lastButtonPress != 1 && RecMode) {
                                 console.log("Button 1 pressed");
-                                Button1();
+                                vButton1();
                             }
                         }
                         else {
                             console.log("No Dard")
-                            if (lastButtonPress != 2) {
+                            if (lastButtonPress != 2 && RecMode) {
                                 console.log("Button 2 pressed");
-                                Button2();
+                                vButton2();
                             }
 
                         }
