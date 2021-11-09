@@ -28,7 +28,7 @@ response = service.post_all_docs(
     db="coband",
     include_docs=True,
 ).get_result()
-i = len(response["docs"]) - 20  # start index to only plot last 20 docs in db
+i = len(response["rows"]) - 20  # start index to only plot last 20 docs in db
 
 
 def get_data():
