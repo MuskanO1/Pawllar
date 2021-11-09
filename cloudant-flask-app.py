@@ -25,7 +25,7 @@ CORS(app)  # This will enable CORS for all routes
 
 i = 0
 response = service.post_all_docs(
-    db="coband",
+    db="jxtin",
     include_docs=True,
 ).get_result()
 i = len(response["rows"]) - 20  # start index to only plot last 20 docs in db
