@@ -199,26 +199,31 @@
                     var series = chart.series[0],
                         shift = series.data.length > 20;
 
-                    // add the point
-                    chart.series[0].addPoint(result, true, shift);
-                    console.log(result);
-                    if (result[1] > 120) {
-                        // alert("WTF?")
-                        console.log("Dard");
-                        if (lastButtonPress != 1) {
-                            console.log("Button 1 pressed");
-                            Button1();
+                    //console.log(result);
+                    console.log(result.length, result);
+                    if (result === '[]') {
+                        console.log("ran out of data");
+                    }
+                    else {                    // add the point
+                        chart.series[0].addPoint(result, true, shift);
+                        console.log(result);
+                        if (result[1] > 120) {
+                            // alert("WTF?")
+                            console.log("Dard");
+                            if (lastButtonPress != 1) {
+                                console.log("Button 1 pressed");
+                                Button1();
+                            }
+                        }
+                        else {
+                            console.log("No Dard")
+                            if (lastButtonPress != 2) {
+                                console.log("Button 2 pressed");
+                                Button2();
+                            }
+
                         }
                     }
-                    else {
-                        console.log("No Dard")
-                        if (lastButtonPress != 2) {
-                            console.log("Button 2 pressed");
-                            Button2();
-                        }
-
-                    }
-
                     // call it again after few seconds
                     setTimeout(requestData, 4000);
 

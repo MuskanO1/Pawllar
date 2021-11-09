@@ -45,7 +45,7 @@ def data():
     global i
     responses = get_data()
     if i >= len(responses["rows"]):
-        return {}
+        return make_response(json.dumps([]))
     else:
         response = responses["rows"][i]["doc"]
         timedate_raw = response["_id"]
