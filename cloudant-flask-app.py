@@ -33,7 +33,7 @@ i = len(response["rows"]) - 20  # start index to only plot last 20 docs in db
 
 def get_data():
     response = service.post_all_docs(
-        db="coband",
+        db="jxtin",
         include_docs=True,
     ).get_result()
     return response
