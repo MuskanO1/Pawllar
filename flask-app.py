@@ -1,3 +1,6 @@
+"""This file uses flask to plot data from the local csv, obselete after the cloudant integration"""
+
+
 from flask import Flask, render_template, make_response
 import json
 from time import sleep

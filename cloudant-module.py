@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# All the necessary imports
 
 SERVICE_URL = os.getenv("SERVICE_URL")
 API_KEY = os.getenv("API_KEY")
@@ -25,8 +26,10 @@ client = CloudantV1(authenticator=authenticator)
 
 client.set_service_url(SERVICE_URL)
 
+# Loaded all private key from .env file
 
-def general_info():
+
+def general_info():  # function to get general info about the band
     global band
     print("MiBand-4")
     print("Soft revision:", band.get_revision())
@@ -66,25 +69,29 @@ def get_realtime():
         print("\nExit.")
 
 
-def heart_logger(data):
-    data = abs(data)
-    print("Realtime heart BPM:", data)
-    hr_list[datetime.now().strftime("%d/%m/%y %H:%M:%S")] = data
+def heart_logger(data):  # data is the value of heart rate
+    data = abs(data)  # to make sure that the value is positive
+    print("Realtime heart BPM:", data)  # print the value
+    hr_list[
+        datetime.now().strftime("%d/%m/%y %H:%M:%S")  # add the value to the dictionary
+    ] = data  # Add the heart rate to the list
     print(len(hr_list) // 2)
     global alternate
-    if alternate:
-        time_ = str(datetime.now().strftime("%d/%m/%y %H:%M:%S"))
+    if alternate:  # to append the heartrate every alternate entry
+        time_ = str(
+            datetime.now().strftime("%d/%m/%y %H:%M:%S")
+        )  # converting time to string
         data_entry: Document = Document(id=time_)
 
         # Add "add heart rate reading as value" field to the document
         data_entry.value = data
 
         # Save the document in the database
-        create_document_response = client.post_document(
-            db="coband", document=data_entry
-        ).get_result()
+        create_document_response = client.post_document(  # create a document
+            db="coband", document=data_entry  # in the database
+        ).get_result()  # get the result of the response
 
-        print(f"You have created the document:\n{data_entry}")
+        print(f"You have created the document:\n{data_entry}")  # Log the document
         print("Logged the data")
     else:
         print("Didnt log the data")

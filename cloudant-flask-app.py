@@ -18,11 +18,17 @@ service = CloudantV1(authenticator=authenticator)
 
 service.set_service_url(SERVICE_URL)
 
+# Loading all privates keys from .env file
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 
 i = 0
+response = service.post_all_docs(
+    db="coband",
+    include_docs=True,
+).get_result()
+i = len(response["docs"]) - 20  # start index to only plot last 20 docs in db
 
 
 def get_data():
@@ -35,26 +41,37 @@ def get_data():
 
 @app.route("/", methods=["GET", "POST"])
 def main():
-    return render_template("index.html", button_accesscode=button_accesscode)
+    return render_template(
+        "index.html", button_accesscode=button_accesscode
+    )  # Passing button access code for alexa controls
 
 
 @app.route("/data", methods=["GET", "POST"])
 def data():
     global i
-    responses = get_data()
-    if i >= len(responses["rows"]):
-        return make_response(json.dumps([]))
+    responses = get_data()  # Getting all docs from db
+    if i >= len(
+        responses["rows"]
+    ):  # To make sure we arent exceeding the length of the db
+        return make_response(
+            json.dumps([])
+        )  # If we are exceeding the length of the db, return empty list
     else:
-        response = responses["rows"][i]["doc"]
-        timedate_raw = response["_id"]
-        date_obj = datetime.datetime.strptime(timedate_raw, "%d/%m/%y %H:%M:%S")
-        hr_value = response["value"]
-        data1 = [date_obj.timestamp() * 1000, int(hr_value)]
+        response = responses["rows"][i]["doc"]  # Getting the doc from the db
+        timedate_raw = response["_id"]  # Getting the time and date from the doc
+        date_obj = datetime.datetime.strptime(
+            timedate_raw, "%d/%m/%y %H:%M:%S"
+        )  # Converting the time and date to a datetime object
+        hr_value = response["value"]  # Getting the heart rate value from the doc
+        data1 = [
+            date_obj.timestamp() * 1000,
+            int(hr_value),
+        ]  # Converting the datetime object to unix timestamp
         print(data1)
-        response = make_response(json.dumps(data1))
+        response = make_response(json.dumps(data1))  # Converting the data to json
         response.content_type = "application/json"
         print(response)
-        i = i + 1
+        i = i + 1  # Incrementing the index
         return response
 
 
