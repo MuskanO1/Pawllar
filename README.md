@@ -19,7 +19,6 @@ Project is created with:
 * MiBand4 library to retrieve heartrate information
 * JavaScript
 * Highcharts for plotting graph
-* Ament library version: 999
 	
 ## Setup
 ------------
