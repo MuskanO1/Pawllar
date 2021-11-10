@@ -79,11 +79,11 @@
 
     <button class="button" onclick="RecModeOn()">Recreation Mode ON</button>
     <button class="button" onclick="RecModeOff()">Recreation Mode OFF</button>
-    <button class="button" onclick="vButton2()">Set Light color to Green</button>
+    <button class="button" onclick="vButton(2)">Set Light color to Green</button>
     <br>
-    <button class="button" onclick="vButton1()">Set light color to Blue</button>
-    <button class="button" onclick="vButton4()">Play soothing music</button>
-    <button class="button" onclick="vButton5()">Play voicenote</button>
+    <button class="button" onclick="vButton(1)">Set light color to Blue</button>
+    <button class="button" onclick="vButton(4)">Play soothing music</button>
+    <button class="button" onclick="vButton(5)">Play voicenote</button>
 
 
 
@@ -110,14 +110,19 @@
             backgroundColor: 'transparent'
         });
 
-        function vButton1() {
-            // Sets color of light to blue
+        function vButton(ButtonNumber) {
+            // presses button number depending upon parameter passed
+
+            // Button 1 sets  color to blue
+            // Button 2 sets  color to green
+            // Button 3 sets color to white (RecMod off)
+            // Button 4 plays soothing music
+            // Button 5 plays voice note
             var accessCode = "{{ button_accesscode }}";
             var data = JSON.stringify({
-                "virtualButton": 1,
+                "virtualButton": ButtonNumber,
                 "accessCode": accessCode
             });
-
             $.ajax({
                 url: "https://api.virtualbuttons.com/v1",
                 type: "POST",
@@ -126,84 +131,104 @@
                     console.log(response);
                 }
             });
-
-            lastButtonPress = 1;
+            lastButtonPress = ButtonNumber;
         }
 
-        function vButton2() {
-            // Sets color of light to green
-            var accessCode = "{{ button_accesscode }}";
-            var data = JSON.stringify({
-                "virtualButton": 2,
-                "accessCode": accessCode
-            });
 
-            $.ajax({
-                url: "https://api.virtualbuttons.com/v1",
-                type: "POST",
-                data: data,
-                success: function (response) {
-                    console.log(response);
-                }
-            });
-            lastButtonPress = 2;
-        }
+        // function vButton1() {
+        //     // Sets color of light to blue
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 1,
+        //         "accessCode": accessCode
+        //     });
 
-        function vButton3() {
-            // Sets bulb color to white (for RecModeOff)
-            var accessCode = "{{ button_accesscode }}";
-            var data = JSON.stringify({
-                "virtualButton": 3,
-                "accessCode": accessCode
-            });
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
 
-            $.ajax({
-                url: "https://api.virtualbuttons.com/v1",
-                type: "POST",
-                data: data,
-                success: function (response) {
-                    console.log(response);
-                }
-            });
-            lastButtonPress = 3;
-        }
-        function vButton4() {
-            // Plays soothing music
-            var accessCode = "{{ button_accesscode }}";
-            var data = JSON.stringify({
-                "virtualButton": 4,
-                "accessCode": accessCode
-            });
+        //     lastButtonPress = 1;
+        // }
 
-            $.ajax({
-                url: "https://api.virtualbuttons.com/v1",
-                type: "POST",
-                data: data,
-                success: function (response) {
-                    console.log(response);
-                }
-            });
-            lastButtonPress = 4;
-        }
+        // function vButton2() {
+        //     // Sets color of light to green
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 2,
+        //         "accessCode": accessCode
+        //     });
 
-        function vButton5() {
-            // Plays voice note
-            var accessCode = "{{ button_accesscode }}";
-            var data = JSON.stringify({
-                "virtualButton": 5,
-                "accessCode": accessCode
-            });
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+        //     lastButtonPress = 2;
+        // }
 
-            $.ajax({
-                url: "https://api.virtualbuttons.com/v1",
-                type: "POST",
-                data: data,
-                success: function (response) {
-                    console.log(response);
-                }
-            });
-            lastButtonPress = 5;
-        }
+        // function vButton3() {
+        //     // Sets bulb color to white (for RecModeOff)
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 3,
+        //         "accessCode": accessCode
+        //     });
+
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+        //     lastButtonPress = 3;
+        // }
+        // function vButton4() {
+        //     // Plays soothing music
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 4,
+        //         "accessCode": accessCode
+        //     });
+
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+        //     lastButtonPress = 4;
+        // }
+
+        // function vButton5() {
+        //     // Plays voice note
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 5,
+        //         "accessCode": accessCode
+        //     });
+
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+        //     lastButtonPress = 5;
+        // }
 
         function RecModeOn() {
             RecMode = true;
@@ -212,7 +237,7 @@
 
         function RecModeOff() {
             RecMode = false;
-            vButton3();
+            vButton(3);
             console.log("RecModeOff");
         }
 
@@ -238,14 +263,14 @@
                             console.log("Dard");
                             if (lastButtonPress != 1 && RecMode) {
                                 console.log("Button 1 pressed");
-                                vButton1();
+                                vButton(1);
                             }
                         }
                         else {
                             console.log("No Dard")
                             if (lastButtonPress != 2 && RecMode) {
                                 console.log("Button 2 pressed");
-                                vButton2();
+                                vButton(2);
                             }
 
                         }
