@@ -43,5 +43,5 @@ python3 cloudant-flask-app.py
 
 For Windows:
 ```
-python3 cloudant-flask-app.py
+python cloudant-flask-app.py
 ```
