@@ -1,6 +1,5 @@
-from flask import Flask, render_template, make_response
+from flask import Flask, render_template, make_response, request
 import json
-from flask import Flask, render_template, make_response
 from flask_cors import CORS
 import datetime
 from ibmcloudant.cloudant_v1 import CloudantV1
@@ -14,6 +13,12 @@ SERVICE_URL = os.getenv("SERVICE_URL")
 API_KEY = os.getenv("API_KEY")
 authenticator = IAMAuthenticator(API_KEY)
 button_accesscode = os.getenv("button_accesscode")
+
+# SERVICE_URL = os.environ["SERVICE_URL"]
+# API_KEY = os.environ["API_KEY"]
+# authenticator = IAMAuthenticator(API_KEY)
+# button_accesscode = os.environ["button_accesscode"]
+
 service = CloudantV1(authenticator=authenticator)
 
 service.set_service_url(SERVICE_URL)
@@ -22,18 +27,23 @@ service.set_service_url(SERVICE_URL)
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
+dispense_rn = False
 
 i = 0
+dispense_rn = False
+
 response = service.post_all_docs(
-    db="jxtin",
-    include_docs=True,
+    db="pawllar_v0",
+    include_docs=False,
 ).get_result()
-i = len(response["rows"]) - 20  # start index to only plot last 20 docs in db
+i = (response["total_rows"]) - 10  # start index to only plot last 20 docs in db
+
+print("Number of entries to be shown ", i)
 
 
 def get_data():
     response = service.post_all_docs(
-        db="jxtin",
+        db="pawllar_v0",
         include_docs=True,
     ).get_result()
     return response
@@ -76,4 +86,4 @@ def data():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")

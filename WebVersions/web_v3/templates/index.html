@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+
+    <title> Pawllar dashboard </title>
+
+
+    <!-- Bootstraps Java Scipts Links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+
+
+    <!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <!--High CHART LIVE  -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+    <style>
+        .button {
+            background-color: #f5af99;
+            border: none;
+            color: rgb(0, 0, 0);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+    </style>
+
+</head>
+
+<body style="background-color: #FFDFD3 ; text-align:center">
+
+    <h1 style="margin-top: 25px;">PAW'llar</h1>
+    <p> Your dog's caretaker : Check in with your dog right now!</p>
+    <style>
+        img {
+            width: 20%;
+            height: 20%;
+        }
+    </style>
+    <img src="https://raw.githubusercontent.com/jxtin/Pawllar/main/templates/icon.png" alt="Icon">
+
+
+    <!--<div class="jumbotron" style="background-color: #889EEA ; text-align:center">
+    </div>
+    <div class="container-fluid"> -->
+    <!-- Example row of columns -->
+    <br><br>
+    <button class="button" onclick="RecModeOn()">Recreation Mode ON</button>
+    <button class="button" onclick="RecModeOff()">Recreation Mode OFF</button>
+    <button class="button" onclick="vButton(2)">Set Light color to Green</button>
+    <br><br>
+    <button class="button" onclick="vButton(1)">Set light color to Blue</button>
+    <button class="button" onclick="vButton(4)">Play soothing music</button>
+    <button class="button" onclick="vButton(5)">Play voicenote</button>
+    <br><br>
+    <br>
+    <div
+        style="background-color: rgb(245, 153, 153) ; text-align:center; margin-top: 50px; margin: auto; width: 460px; border-radius: 1000px;">
+        <h1 class="temp_value0"> Sensor : </h1>
+    </div>
+    <div
+        style="background-color: rgb(245, 153, 153) ; text-align:center; margin-top: 50px; margin: auto; width: 460px; border-radius: 1000px;">
+
+        <h1 class="spo2_value0"> Sensor : </h1>
+    </div>
+    <div
+        style="background-color: rgb(245, 153, 153) ; text-align:center; margin-top: 50px; margin: auto; width: 460px; border-radius: 1000px;">
+        <h1 class="hr_value0"> Sensor : </h1>
+    </div>
+    <br><br>
+
+    <div class="row">
+        <div class="container-fluid" id="data-hr">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="container-fluid" id="data-spo2">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="container-fluid" id="data-temp">
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script>
+
+        // TODO:
+        // Recreation: ON(Manual buttons)
+        // Recreation: OFF(Manual buttons)
+        // MANUAL LIGHT: GREEN(Alexa Button)
+        // MANUAL LIGHT: BLUE(Alexa Button)
+        // SOOTHING MUSIC: PLAY(Alexa Button)
+        // SEND MY VOICE NOTE: PLAY(Alexa Button)
+
+        var chart;
+        var RecMode = false;
+        var lastButtonPress = 0;
+        var accessCode = "{{ button_accesscode }}";
+        const timezone = new Date().getTimezoneOffset();
+        console.log(timezone)
+        Highcharts.setOptions({
+            global: {
+                timezoneOffset: timezone
+            },
+            backgroundColor: 'transparent'
+        });
+
+        function vButton(ButtonNumber) {
+            // presses button number depending upon parameter passed
+
+            // Button 1 sets  color to blue
+            // Button 2 sets  color to green
+            // Button 3 sets color to white (RecMod off)
+            // Button 4 plays soothing music
+            // Button 5 plays voice note
+            var accessCode = "{{ button_accesscode }}";
+            var data = JSON.stringify({
+                "virtualButton": ButtonNumber,
+                "accessCode": accessCode
+            });
+            $.ajax({
+                url: "https://api.virtualbuttons.com/v1",
+                type: "POST",
+                data: data,
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+            lastButtonPress = ButtonNumber;
+        }
+
+
+        // function vButton1() {
+        //     // Sets color of light to blue
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 1,
+        //         "accessCode": accessCode
+        //     });
+
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+
+        //     lastButtonPress = 1;
+        // }
+
+        // function vButton2() {
+        //     // Sets color of light to green
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 2,
+        //         "accessCode": accessCode
+        //     });
+
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+        //     lastButtonPress = 2;
+        // }
+
+        // function vButton3() {
+        //     // Sets bulb color to white (for RecModeOff)
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 3,
+        //         "accessCode": accessCode
+        //     });
+
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+        //     lastButtonPress = 3;
+        // }
+        // function vButton4() {
+        //     // Plays soothing music
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 4,
+        //         "accessCode": accessCode
+        //     });
+
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+        //     lastButtonPress = 4;
+        // }
+
+        // function vButton5() {
+        //     // Plays voice note
+        //     var accessCode = "{{ button_accesscode }}";
+        //     var data = JSON.stringify({
+        //         "virtualButton": 5,
+        //         "accessCode": accessCode
+        //     });
+
+        //     $.ajax({
+        //         url: "https://api.virtualbuttons.com/v1",
+        //         type: "POST",
+        //         data: data,
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+        //     lastButtonPress = 5;
+        // }
+
+        function RecModeOn() {
+            RecMode = true;
+            console.log("RecModeOn");
+        }
+
+        function RecModeOff() {
+            RecMode = false;
+            vButton(3);
+            console.log("RecModeOff");
+        }
+
+        function requestData() {
+            // Ajax call to get the Data from Flask
+            var requests = $.get('/data');
+
+            var tm = requests.done(function (result) {
+                console.log(result);
+                // console.log(result[0]);
+                // console.log(result[1]);
+                console.log(Object.keys(result).length);
+                if (result != ["No more data"]) {
+                    var serieshr = charthr.series[0],
+                        shifthr = serieshr.data.length > 20;
+
+                    // spo2
+                    var seriesspo2 = chartspo2.series[0],
+                        shiftspo2 = seriesspo2.data.length > 20;
+
+                    var seriestemp = charttemp.series[0],
+                        shifttemp = seriestemp.data.length > 20;
+
+                    // Add the Point
+                    // Time hr
+                    for (i in result) {
+                        var data1 = [result[i]["_id"], result[i]["hr_value"]];
+
+                        var data2 = [result[i]["_id"], result[i]["spo2_value"]];
+
+                        var data3 = [result[i]["_id"], result[i]["temperature_value"]];
+                        var data4 = [result[i]["_id"], result[i]["health_index"]];
+                        charthr.series[i].addPoint(data1, true, shifthr);
+                        chartspo2.series[i].addPoint(data2, true, shiftspo2);
+                        charttemp.series[i].addPoint(data3, true, shifttemp);
+                        $(`.temp_value${i}`).text(`Temperature is ${(data3[1])}`);
+
+                        $(`.spo2_value${i}`).text(`SPO2 is ${(data2[1])}`);
+
+                        $(`.hr_value${i}`).text(`Heart rate is ${(data1[1])}`);
+                        // if (data4[1] < 75) {
+                        //     $(`.health_index${i}`).css("color", "red");
+                        // } else {
+                        //     $(`.health_index${i}`).css("color", "green");
+                        // }
+
+                        if (data3[1] > 100) {
+                            $(`.temp_value${i}`).css("color", "red");
+                        }
+                        else {
+                            $(`.temp_value${i}`).css("color", "green");
+                        }
+
+                        if (data2[1] < 95) {
+                            $(`.spo2_value${i}`).css("color", "red");
+                        } else {
+                            $(`.spo2_value${i}`).css("color", "green");
+                        }
+                        if (data1[1] > 120) {
+                            console.log("Dard");
+                            $(`.hr_value${i}`).css("color", "red");
+                            if (lastButtonPress != 1 && RecMode) {
+                                console.log("Button 1 pressed");
+                                vButton(1);
+                            }
+
+                        } else {
+                            $(`.hr_value${i}`).css("color", "green");
+                            console.log("No Dard")
+                            if (lastButtonPress != 2 && RecMode) {
+                                console.log("Button 2 pressed");
+                                vButton(2);
+                            }
+                        }
+
+
+                        // Suggestion keep the alerts commented when not in use
+                        if (data3[1] > 100) {
+                            $(`.temp_value${i}`).css("color", "red");
+                            // window.alert(`Temperature is too high for your Pet`);
+                        }
+                        else {
+                            $(`.temp_value${i}`).css("color", "green");
+                        }
+
+                        if (data2[1] < 95) {
+                            $(`.spo2_value${i}`).css("color", "red");
+                            // window.alert(`SPO2 is low for your Pet`);
+                        } else {
+                            $(`.spo2_value${i}`).css("color", "green");
+                        }
+                        if (data1[1] > 120) {
+                            $(`.hr_value${i}`).css("color", "red");
+                        } else {
+                            $(`.hr_value${i}`).css("color", "green");
+                        }
+
+                    }
+
+
+                    // charthr.series[0].addPoint(data1, true, shifthr);
+                    // chartspo2.series[0].addPoint(data2, true, shiftspo2);
+                    // charttemp.series[0].addPoint(data3, true, shifttemp);
+                    // charthr.series[1].addPoint(data1, true, shifthr);
+                    // chartspo2.series[1].addPoint(data2, true, shiftspo2);
+                    // charttemp.series[1].addPoint(data3, true, shifttemp);
+
+                }
+                // call it again after few seconds
+                setTimeout(requestData, 4000);
+
+            });
+        }
+        $(document).ready(function () {
+            // --------------Chart 1 ----------------------------
+            charthr = new Highcharts.Chart({
+                chart:
+                {
+                    renderTo: 'data-hr',
+                    defaultSeriesType: 'spline',
+                    backgroundColor: 'transparent',
+                    events: {
+                        load: requestData
+                    }
+                },
+                title: {
+                    text: 'Live Heart Rate'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    maxZoom: 20 * 1000
+                },
+                yAxis: {
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    title: {
+                        text: 'Value',
+                        margin: 80
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        threshold: 0
+                    }
+                },
+
+                series: [{
+                    name: 'Heartrate',
+                    data: [],
+                    zones: [{
+                        value: 60,
+                        color: '#7cb5ec'
+                    }, {
+                        value: 115,
+                        color: '#86f77e'
+                    }, {
+                        color: '#FC8F78'
+                    }
+                    ]
+
+                },
+                    // {
+                    //     name: 'Heartrate 2',
+                    //     data: [],
+                    //     zones: [{
+                    //         value: 60,
+                    //         color: '#7cb5ec'
+                    //     }, {
+                    //         value: 115,
+                    //         color: '#86f77e'
+                    //     }, {
+                    //         color: '#FC8F78'
+                    //     }
+                    //     ]
+                    // }
+
+                ],
+            });
+            // --------------Chart 1 Ends - -----------------
+
+            chartspo2 = new Highcharts.Chart({
+                chart:
+                {
+                    renderTo: 'data-spo2',
+                    defaultSeriesType: 'spline',
+                    backgroundColor: 'transparent',
+                    events: {
+                        load: requestData
+                    }
+                },
+                title:
+                {
+                    text: 'Live SPO2'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    maxZoom: 20 * 1000
+                },
+                yAxis: {
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    title: {
+                        text: 'Value',
+                        margin: 80
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        threshold: 85
+                    }
+                },
+
+                series: [{
+                    lineColor: '#1d82b8',
+                    name: 'SPO2',
+                    data: [],
+                    zones: [{
+                        value: 95,
+                        color: '#FC8F78'
+                    }, {
+                        value: 100,
+                        color: '#86f77e'
+                    }
+                    ]
+                },
+                    // {
+                    //     lineColor: '#1d82b8',
+                    //     name: 'spo2 2',
+                    //     data: []
+                    // }
+                ]
+
+            });
+            // --------------Chart 2 Ends - -----------------
+
+            charttemp = new Highcharts.Chart({
+                chart:
+                {
+                    renderTo: 'data-temp',
+                    defaultSeriesType: 'spline',
+                    backgroundColor: 'transparent',
+                    events: {
+                        load: requestData
+                    }
+                },
+                title:
+                {
+                    text: 'Live Temperature'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    maxZoom: 20 * 1000
+                },
+                yAxis: {
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    title: {
+                        text: 'Value',
+                        margin: 80
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        threshold: 95
+                    }
+                },
+
+                series: [{
+                    lineColor: '#1d82b8',
+                    name: 'Temperature',
+                    data: [],
+                    zones: [{
+                        value: 97,
+                        color: '#7cb5ec'
+                    }, {
+                        value: 100,
+                        color: '#86f77e'
+                    }, {
+                        color: '#FC8F78'
+                    }
+                    ]
+
+
+
+
+                },
+                    // {
+                    //     lineColor: '#1d82b8',
+                    //     name: 'temperature 2',
+                    //     data: []
+                    // }
+                ]
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

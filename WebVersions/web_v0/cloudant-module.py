@@ -88,7 +88,7 @@ def heart_logger(data):  # data is the value of heart rate
 
         # Save the document in the database
         create_document_response = client.post_document(  # create a document
-            db="jxtin", document=data_entry  # in the database
+            db="pawllar_v0", document=data_entry  # in the database
         ).get_result()  # get the result of the response
 
         print(f"You have created the document:\n{data_entry}")  # Log the document
