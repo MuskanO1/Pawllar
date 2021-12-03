@@ -39,7 +39,7 @@
     },
     {
       "name": "cupertino_icons",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.3",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -64,6 +64,12 @@
     {
       "name": "flutter",
       "rootUri": "file:///C:/flutter/packages/flutter",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_spinkit",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-5.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -261,9 +267,9 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.0",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.2.10",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.13"
     },
     {
       "name": "xdg_directories",
@@ -278,7 +284,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-12-03T17:56:24.257592Z",
+  "generated": "2021-12-03T18:07:03.160027Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

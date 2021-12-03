@@ -24,8 +24,8 @@ file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0/
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0/lib/
 cupertino_icons
 2.12
-file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.3/
-file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.3/lib/
+file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4/
+file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4/lib/
 fake_async
 2.12
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0/
@@ -38,6 +38,10 @@ file
 2.12
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/lib/
+flutter_spinkit
+2.12
+file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-5.1.0/
+file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-5.1.0/lib/
 http
 2.14
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/
@@ -155,9 +159,9 @@ vector_math
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.0/
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.0/lib/
 win32
-2.14
-file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.0/
-file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.0/lib/
+2.13
+file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.2.10/
+file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.2.10/lib/
 xdg_directories
 2.12
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.2.0/
