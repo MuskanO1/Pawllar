@@ -19,5 +19,5 @@ The prototype has the following functionalities :
  * Use that health index to trigger output appliances in your Smart Home enhancing the experience of your pet without any human intervention.
  * Trigger Alexa routines for the same both manually and automatically using the dynamically updating health index (an aggregate of the real-time vitals indicating the wellness and mood of your pet).
  * Controlling the color of lights, nature of music, thermostat temperature and as many devices as needed through the application/website via the connected Alexa.
- * Triggering a feeder that would release food on command.
+ * Triggering a feeder that would release food on command to feed the dog while not at home.
 
