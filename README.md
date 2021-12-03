@@ -1,47 +1,23 @@
-# Pawllar
+# PAW'llar
 
 
 INTRODUCTION
 ------------
 
-Pawllar is a product idea developed by team PontiacBandits primarily for [Resideo IOT hackathon](https://www.hackerearth.com/challenges/hackathon/hack-iot/) and following is the prototype of the product dash board web version with following functionalities :
+PAWllar, a product idea developed by Team Pontiac Bandits primarily for the [Resideo IOT hackathon](https://www.hackerearth.com/challenges/hackathon/hack-iot/) targets adding another layer to Smart Home Automization through sesnor technologies via a one-fits all collar. This collar : PAW'llar essentially is your dog's caretaker as it tracks the main vitals of your dog and predicts its health and status to generate alerts on the owner side through an integrated mobile application and website. Once these alerts are generated on the owner's part, they can trigger various responses to interact with the dog using both, the mobile application and website which range from change in color of lights, temperature and music inside the area in which the dog is located. This is alongside a connected feeder which will allow for food-release on-command ensuring that everything you dog needs can be taken care of through your very phone. 
 
- * Visualise and raise alerts based on heartrate of your pet
- * Use that heart rate to perform actions on your smart home enhancing the experience of your pet.
- * Trigger alexa routines manually or by inferring the heartrate.
- * Control light color, relaxing music, control temperature of the thermost and even more according to available smart home devices.
-
-## Technologies
+## Prototype
 ------------
-Project is created with:
-* Flask
-* IBM Cloudant database Service
-* MiBand4 library to retrieve heartrate information
-* JavaScript
-* Highcharts for plotting graph
-	
-## Setup
-------------
-To run this project, install the requirements.txt module using 
 
-For linux or MacOs:
-```
-pip3 install -r requirements.txt
-```
+The prototype thus includes both a multi-sensor based hardware alongside a software part developed in a multitude of versions to get to the final product. Our existing prototype has five functional versions. The idea behind making multiple versions was to ensure that the developing hardware adds to the functionalities of the software end in a manner that would improvise on the existing product and allow for further scaling / improvements without rendering the mobile application / website for our product entirely futile.
 
-For Windows:
-```
-pip install -r requirements.txt
-```
+The software includes an ownder side mobile application as well as a website cum dashboard. The application is made using flutter whilea python web flask is used to make the website end. Because of lack of direct hardware data fetching and the nature of the competition being online, the data for the software is being fetched from Cloudant after uploading it from the remote hardware. The softwares are dynamic in nature and are updated as new data is realised through the hardware. Dynamically updating health analytics make it easier for the owner to understand the pet's overall health alongside the overall status through the aggregate health index.
 
-To run the prototype simulation to get data from cloudant, setup the webpage using :
+The prototype has the following functionalities :
 
-For linux or MacOs:
-```
-python3 cloudant-flask-app.py
-```
+ * Visualise and raise alerts based on a health-index tracked via the heartrate, temperarure and SPO2 of your pet
+ * Use that health index to trigger output appliances in your Smart Home enhancing the experience of your pet without any human intervention.
+ * Trigger Alexa routines for the same both manually and automatically using the dynamically updating health index (an aggregate of the real-time vitals indicating the wellness and mood of your pet).
+ * Controlling the color of lights, nature of music, thermostat temperature and as many devices as needed through the application/website via the connected Alexa.
+ * Triggering a feeder that would release food on command.
 
-For Windows:
-```
-python cloudant-flask-app.py
-```
