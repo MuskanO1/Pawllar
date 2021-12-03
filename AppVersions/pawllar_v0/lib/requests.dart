@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 // Global variables
-final String apiKeyCloudant = "9jtFMX0LC5cab8x5I5OYermeMeDYf0hQKCegLnT0z50L";
+final String apiKeyCloudant = "iTKNYiDWhOhM71Ay-q1faeu1Zp2U0u8jyrm-h2juXyyJ";
 final String dbURL =
     "https://dbb024f3-9e7d-44fd-b99c-cbcdb456cc83-bluemix.cloudantnosqldb.appdomain.cloud";
 
@@ -57,6 +57,21 @@ Future<String> getIAMToken(String IAM_api_key) async {
   return responseJson['access_token'];
 }
 
+// Get document specific data from a db
+Future<Map<String, dynamic>> fetchDocDB(String db, String doc_id) async {
+  final String IAM_Token = await getIAMToken(apiKeyCloudant);
+
+  final response =
+      await http.get(Uri.parse('$dbURL/$db/$doc_id'), headers: <String, String>{
+    HttpHeaders.authorizationHeader: "Bearer $IAM_Token",
+    HttpHeaders.contentTypeHeader: 'application/json',
+  });
+
+  final responseJson = jsonDecode(response.body);
+
+  return responseJson;
+}
+
 // Get data from cloudant
 Future<Map<String, dynamic>> fetchCloudantData(String db) async {
   final String IAM_Token = await getIAMToken(apiKeyCloudant);
@@ -72,7 +87,7 @@ Future<Map<String, dynamic>> fetchCloudantData(String db) async {
       }));
 
   final responseJson = jsonDecode(response.body);
-
+  print(responseJson);
   return responseJson;
 }
 
@@ -93,9 +108,10 @@ Future<List<HeartRateData>> updateBandData(String db) async {
 
 // Check db existence
 Future<bool> checkDB(String dbName, String IAM_Token) async {
-  final response = await http.put(Uri.parse('$dbURL/$dbName'),
+  final response = await http.get(Uri.parse('$dbURL/$dbName'),
       headers: {HttpHeaders.authorizationHeader: "Bearer $IAM_Token"});
 
+  print(response.statusCode);
   return (response.statusCode.toString() == '200');
 }
 
@@ -107,19 +123,18 @@ Future<Map<String, dynamic>> signIn(String dbName, String password) async {
   if (!(await checkDB(dbName, IAM_Token))) {
     return {"status": false, 'reason': 'error'};
   }
-
   // Get the database's data
-  Map<String, dynamic> data = await fetchCloudantData(dbName);
+  Map<String, dynamic> logInCheck = await fetchDocDB("key_pass", dbName);
 
-  if (password == data['password']) {
+  if (password != logInCheck['password']) {
     return {"status": false, 'reason': 'password'};
   }
+
   // Clean and give data
   results = {
     "status": true,
-    'age': data['age'],
-    'username': data['username'],
+    "age": logInCheck['age'],
+    "username": dbName,
   };
-
   return results;
 }

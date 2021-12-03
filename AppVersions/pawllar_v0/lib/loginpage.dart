@@ -20,24 +20,30 @@ class _LoginPageState extends State<LoginPage> {
 
   getInputs() async {
     if (usernameInput.text == "admin" && passwordInput.text == "admin") {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-        builder: (context) {
-          return HomePage(db: "pawllar_v4");
-        },
-      ), (r) => false);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return HomePage(db: "pawllar_v0");
+          },
+        ),
+      );
       return;
     }
     final results = await signIn(usernameInput.text, passwordInput.text);
+    print(results);
 
     if (results['status']) {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-        builder: (context) {
-          return HomePage(db: results['username']);
-        },
-      ), (r) => false);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return HomePage(db: results['username']);
+          },
+        ),
+      );
       return;
     }
-    Navigator.pop(context);
   }
 
   @override
@@ -138,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                 Positioned(
                   top: 140,
                   left: 30,
-                  child: Text("CoBand",
+                  child: Text("PAW'llar",
                       style: TextStyle(
                           fontFamily: "SantaReindeer",
                           fontSize: 72,
