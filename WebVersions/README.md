@@ -1,9 +1,9 @@
-# Pawllar
+# PAW'llar
 
 
 ## Technologies
 ------------
-Project is created with:
+Project's website is created with:
 * Flask
 * IBM Cloudant database Service
 * MiBand4 library to retrieve heartrate information (Works only with linux)
