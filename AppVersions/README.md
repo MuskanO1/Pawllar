@@ -1,14 +1,15 @@
-# How to Install the apps
+# Installing the mobile application interface on a remote set-up :
 -----------------------------------------------------------------
 
 ## Pre-requisites
 - [Flutter](https://flutter.dev/) should be installed
 
-Replace 'X' with version number to compile the app
+Change directory to the wanted version ( replace x with the required version ) and build the apk file
 ```
 cd pawllar_vX
 flutter build apk
 ```
+- Manual download of apk files on Android devices will suffice. 
 
 # Login credentials
 ------------------------------------------------------------------
