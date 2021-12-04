@@ -12,7 +12,7 @@ Project's website is created with:
 	
 ## Setup
 ------------
-To run this project, install the requirements.txt module using 
+To run this project, install the requirements.txt module using -
 
 For linux or MacOs:
 ```
