@@ -10,9 +10,8 @@
     <!-- Bootstraps Java Scipts Links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKfrom dateutil.tz import gettz
+hv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
@@ -131,12 +130,12 @@
         var accessCode = "{{ button_accesscode }}";
         const timezone = new Date().getTimezoneOffset();
         console.log(timezone)
-        Highcharts.setOptions({
-            global: {
-                timezoneOffset: timezone
-            },
-            backgroundColor: 'transparent'
-        });
+        // Highcharts.setOptions({
+        //     global: {
+        //         timezoneOffset: timezone
+        //     },
+        //     backgroundColor: 'transparent'
+        // });
 
         function vButton(ButtonNumber) {
             // presses button number depending upon parameter passed
@@ -364,9 +363,13 @@
 
 
                         // Suggestion keep the alerts commented when not in use
-                        if (data3[1] > 100) {
+                        if (data3[1] > 105) {
                             $(`.temp_value${i}`).css("color", "red");
                             // window.alert(`Temperature is too high for your Pet`);
+                        }
+                        else if (data3[1] < 98) {
+                            $(`.temp_value${i}`).css("color", "blue");
+                            // window.alert(`Temperature is too low for your Pet`);
                         }
                         else {
                             $(`.temp_value${i}`).css("color", "green");
@@ -378,9 +381,17 @@
                         } else {
                             $(`.spo2_value${i}`).css("color", "green");
                         }
-                        if (data1[1] > 120) {
+                        if (data1[1] > 140) {
                             $(`.hr_value${i}`).css("color", "red");
-                        } else {
+                            // window.alert(`Heartrate is high for your Pet`);
+
+                        }
+                        else if (data1[1] < 95) {
+                            $(`.hr_value${i}`).css("color", "blue");
+                            // window.alert(`Heartrate is low for your Pet`);
+
+                        }
+                        else {
                             $(`.hr_value${i}`).css("color", "green");
                         }
 
@@ -438,10 +449,10 @@
                     name: 'Heartrate',
                     data: [],
                     zones: [{
-                        value: 60,
+                        value: 95,
                         color: '#7cb5ec'
                     }, {
-                        value: 115,
+                        value: 140,
                         color: '#86f77e'
                     }, {
                         color: '#FC8F78'
@@ -502,14 +513,14 @@
                 },
 
                 series: [{
-                    lineColor: '#1d82b8',
+                    lineColor: '#86f77e',
                     name: 'SPO2',
                     data: [],
                     zones: [{
-                        value: 95,
+                        value: 96,
                         color: '#FC8F78'
                     }, {
-                        value: 100,
+                        value: 101,
                         color: '#86f77e'
                     }
                     ]
@@ -562,10 +573,10 @@
                     name: 'Temperature',
                     data: [],
                     zones: [{
-                        value: 97,
+                        value: 98,
                         color: '#7cb5ec'
                     }, {
-                        value: 100,
+                        value: 105,
                         color: '#86f77e'
                     }, {
                         color: '#FC8F78'
@@ -585,7 +596,6 @@
             });
 
         });
-
     </script>
 </body>
 
