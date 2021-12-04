@@ -2,7 +2,7 @@
 
 ## 
 
-This folder of the project contains **electrical circuits, CAD Models, and the codes** associated withh the circuits needed for the physical PAW'llar units.
+This folder of the project contains **electrical circuits, CAD Models, and the codes** associated withh the circuits needed for the physical PAW'llar units as well as the pet feeder.
 
 
 ### Following are the CAD models for the physical unit :
