@@ -1,16 +1,16 @@
-# Pawllar
+# PAWllae : Hardware
 
-## Hardware Related Files
+## 
 
-This folder of the project contains **electrical circuits, CAD Models, and the codes** associated withh the circuits needed for the physical pawllar units..
+This folder of the project contains **electrical circuits, CAD Models, and the codes** associated withh the circuits needed for the physical PAW'llar units.
 
 
-### Following are the CAD models for physical unit :
+### Following are the CAD models for the physical unit :
 ```
 fit_cap.stl
 fit_model.stl
 ```
-### Following are the fritzing models containing the circuits for physical units.
+### Following are the fritzing models containing the circuits for physical units :
 
 ```
 v2 - Minipro.fzz
@@ -18,13 +18,13 @@ v3 - Arduinouno1.fzz
 v4 - Nodemcu.fzz
 ```
 
-### Following are the arduino codes for the circuits of physical unit.
+### Following are the arduino codes for the circuits of physical unit :
 ```
 v3-Arduinouno.ino
 v4-Arduinouno.ino
 ```
 
-### Following is the codes for node mcu unit for food dispensing.
+### Following is the code for the node MCU on which the dog feeder is built for food dispensing :
 ```
 v4-dog-feeder.ino
 ```
