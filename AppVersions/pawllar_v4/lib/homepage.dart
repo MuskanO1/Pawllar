@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
         displaySpO2 = spo2Parameter[0].average.toString();
         displayIndex = indexParameter[0].average.toString();
 
-        if (indexParameter[0].average < 75) {
+        if (indexParameter[0].average < 80) {
           healthStatus = "Health is not in optimal state";
           status_image = "not_optimal.png";
         } else {

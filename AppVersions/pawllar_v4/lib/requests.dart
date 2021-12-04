@@ -50,7 +50,7 @@ class HeartCheck {
   // Constructor
   HeartCheck(this.data) {
     this.calculate();
-    if (this.average < 70 || this.average > 115)
+    if (this.average < 100 || this.average > 145)
       color = const Color.fromRGBO(128, 0, 0, 1);
     else
       color = const Color.fromRGBO(0, 128, 0, 1);
@@ -75,10 +75,10 @@ class TemperatureCheck {
   // Constructor
   TemperatureCheck(this.data) {
     this.calculate();
-    if (this.average < 39 || this.average > 35)
-      color = const Color.fromRGBO(0, 128, 0, 1);
-    else
+    if (this.average < 98 || this.average > 106)
       color = const Color.fromRGBO(128, 0, 0, 1);
+    else
+      color = const Color.fromRGBO(0, 128, 0, 1);
   }
 
   // Calculate the health check parameter for a set of readings
@@ -100,7 +100,7 @@ class SpO2Check {
   // Constructor
   SpO2Check(this.data) {
     this.calculate();
-    if (this.average < 85)
+    if (this.average < 97)
       color = const Color.fromRGBO(128, 0, 0, 1);
     else
       color = const Color.fromRGBO(0, 128, 0, 1);
@@ -124,7 +124,7 @@ class HealthIndexCheck {
   // Constructor
   HealthIndexCheck(this.data) {
     this.calculate();
-    if (this.average < 75)
+    if (this.average < 80)
       color = const Color.fromRGBO(128, 0, 0, 1);
     else
       color = const Color.fromRGBO(0, 128, 0, 1);

@@ -27,7 +27,7 @@ class HealthCheck {
   // Constructor
   HealthCheck(this.data) {
     this.calculate();
-    if (this.average < 70 || this.average > 115)
+    if (this.average < 75 || this.average > 120)
       color = const Color.fromRGBO(128, 0, 0, 1);
     else
       color = const Color.fromRGBO(0, 128, 0, 1);

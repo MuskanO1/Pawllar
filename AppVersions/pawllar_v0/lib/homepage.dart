@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
       parameter.add(newData);
 
       displayHeartRate = parameter[0].average.toString();
-      if (parameter[0].average < 70 || parameter[0].average > 115) {
+      if (parameter[0].average < 75 || parameter[0].average > 120) {
         status_image = "not_optimal.png";
       } else {
         status_image = "optimal.png";
