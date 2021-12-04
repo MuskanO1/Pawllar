@@ -7,7 +7,7 @@
 - [Flutter](https://flutter.dev/) should be installed
 
 Installing the mobile application interface on a remote set-up :
-Change directory to the wanted version ( replace x with the required version ) and build the apk file
+- Change directory to the wanted version ( replace x with the required version ) and build the apk file
 ```
 cd pawllar_vX
 flutter build apk
