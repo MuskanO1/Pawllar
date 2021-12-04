@@ -15,7 +15,7 @@ The software includes an ownder side mobile application as well as a website cum
 
 The prototype has the following functionalities :
 
- * Visualise and raise alerts based on a health-index tracked via the heartrate, temperarure and SPO2 of your pet
+ * Visualise and raise alerts based on a health-index tracked via the heartrate, temperarure and SPO2 of your pet.
  * Use that health index to trigger output appliances in your Smart Home enhancing the experience of your pet without any human intervention.
  * Trigger Alexa routines for the same both manually and automatically using the dynamically updating health index (an aggregate of the real-time vitals indicating the wellness and mood of your pet).
  * Controlling the color of lights, nature of music, thermostat temperature and as many devices as needed through the application/website via the connected Alexa.
